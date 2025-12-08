@@ -1,0 +1,22 @@
+﻿@model Tag
+
+<tr id="tag-row-@Model.Id">
+    <td>@Model.Name</td>
+    <td>@Model.Description</td>
+    <td>
+        <button class="btn btn-sm btn-primary"
+                hx-get="/Tags/Edit/@Model.Id"
+                hx-target="#tag-row-@Model.Id"
+                hx-swap="outerHTML">
+            Edit
+        </button>
+
+        <button class="btn btn-sm btn-danger"
+                hx-delete="/Tags/Delete/@Model.Id"
+                hx-target="#tag-row-@Model.Id"
+                hx-swap="outerHTML"
+                hx-confirm="Are you sure?">
+            Delete
+        </button>
+    </td>
+</tr>

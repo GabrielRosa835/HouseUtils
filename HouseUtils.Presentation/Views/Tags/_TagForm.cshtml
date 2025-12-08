@@ -1,0 +1,42 @@
+﻿@model Tag
+@{
+    bool isNew = Model.Id == 0;
+    string rowId = isNew ? "new-tag-row" : $"tag-row-{Model.Id}";
+    string formAction = isNew ? "/Tags/Create" : "/Tags/Update";
+    string target = isNew ? "#tags-table-body" : $"#tag-row-{Model.Id}";
+    string swap = isNew ? "beforeend" : "outerHTML"; // Append new items, replace existing ones
+}
+
+<tr id="@rowId">
+    <td>
+        <input asp-for="Name" class="form-control form-control-sm" required />
+    </td>
+    <td>
+        <input asp-for="Description" class="form-control form-control-sm" />
+    </td>
+    <td>
+        <button class="btn btn-sm btn-success"
+                hx-post="@formAction"
+                hx-include="closest tr"
+                hx-target="@target"
+                hx-swap="@swap">
+            Save
+        </button>
+        
+        @if (isNew)
+        {
+            <button class="btn btn-sm btn-secondary" onclick="this.closest('tr').remove()">Cancel</button>
+        }
+        else
+        {
+            <button class="btn btn-sm btn-secondary"
+                    hx-get="/Tags/Cancel/@Model.Id"
+                    hx-target="closest tr"
+                    hx-swap="outerHTML">
+                Cancel
+            </button>
+        }
+        
+        <input type="hidden" asp-for="Id" />
+    </td>
+</tr>
