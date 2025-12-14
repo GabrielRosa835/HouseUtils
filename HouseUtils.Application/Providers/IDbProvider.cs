@@ -1,9 +1,9 @@
-﻿using HouseUtils.Application.Data;
+﻿using HouseUtils.Application.Persistence;
 
 namespace HouseUtils.Application.Providers;
 
 public interface IDbProvider
 {
-   IApplicationDbContext Context ();
-   ITransactionDbContext Transaction ();
+   IApplicationDbContext GetContext ();
+   ITransactionDbContext GetTransaction ();
 }

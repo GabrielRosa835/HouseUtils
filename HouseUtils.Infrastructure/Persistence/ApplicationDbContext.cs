@@ -1,4 +1,4 @@
-﻿using HouseUtils.Application.Data;
+﻿using HouseUtils.Application.Persistence;
 using HouseUtils.Domain;
 using HouseUtils.Domain.Models;
 using HouseUtils.Infrastructure.Persistence.Tables;

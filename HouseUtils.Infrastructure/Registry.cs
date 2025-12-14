@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-using HouseUtils.Application.Data;
+using HouseUtils.Application.Persistence;
 using HouseUtils.Application.Providers;
 using HouseUtils.Infrastructure.Persistence;
 using HouseUtils.Infrastructure.Providers;

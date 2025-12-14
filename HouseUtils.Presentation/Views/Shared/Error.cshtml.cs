@@ -1,4 +1,4 @@
-namespace HouseUtils.PresentationMVC.Models;
+namespace HouseUtils.Presentation.Views.Shared;
 
 public class ErrorViewModel
 {

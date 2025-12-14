@@ -1,9 +1,9 @@
-﻿using HouseUtils.Application.Data;
+﻿using HouseUtils.Application.Persistence;
 using HouseUtils.Domain.Models;
 
 namespace HouseUtils.Application.Models.Tags;
 
-public static class TagQueries
+public static class TagRepository
 {
    public static Tag? FindById(this IEntityContext<Tag> context, int id)
    {

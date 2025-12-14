@@ -1,12 +1,11 @@
 ﻿using HouseUtils.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HouseUtils.PresentationMVC.Controllers;
+namespace HouseUtils.Presentation.Register.Controllers;
 
 public class TagsController : Controller
 {
    private readonly List<Tag> data = [];
-
 
    // GET: /Tags (Full Page Load)
    public IActionResult Index ()

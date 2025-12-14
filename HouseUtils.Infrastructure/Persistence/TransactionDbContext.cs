@@ -1,4 +1,4 @@
-﻿using HouseUtils.Application.Data;
+﻿using HouseUtils.Application.Persistence;
 
 namespace HouseUtils.Infrastructure.Persistence;
 

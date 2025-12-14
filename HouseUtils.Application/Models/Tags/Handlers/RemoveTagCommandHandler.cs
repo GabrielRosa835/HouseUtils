@@ -20,7 +20,7 @@ public class RemoveTagCommandHandler
          return errors;
 
       Tag? tag;
-      using (var context = db.Context())
+      using (var context = db.GetContext())
       {
          tag = context.Tags.FindById(arguments.Id);
       }
@@ -30,7 +30,7 @@ public class RemoveTagCommandHandler
 
       try
       {
-         using var transaction = db.Transaction();
+         using var transaction = db.GetTransaction();
          transaction.Tags.Remove(tag);
       }
       catch (Exception e)

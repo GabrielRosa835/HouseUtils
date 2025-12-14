@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-using HouseUtils.Application.Data;
+using HouseUtils.Application.Persistence;
 using HouseUtils.Application.Models.Tags;
 using HouseUtils.Application.Models.Tags.DTOs;
 

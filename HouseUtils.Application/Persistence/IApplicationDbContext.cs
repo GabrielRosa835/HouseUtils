@@ -1,7 +1,7 @@
 ﻿using HouseUtils.Domain;
 using HouseUtils.Domain.Models;
 
-namespace HouseUtils.Application.Data;
+namespace HouseUtils.Application.Persistence;
 
 public interface IApplicationDbContext : IDisposable
 {

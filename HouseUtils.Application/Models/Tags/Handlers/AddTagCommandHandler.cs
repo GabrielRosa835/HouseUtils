@@ -21,7 +21,7 @@ public class AddTagCommandHandler
 
       Tag tag = arguments.ToTag();
 
-      using var transaction = dbProvider.Transaction();
+      using var transaction = dbProvider.GetTransaction();
       transaction.Tags.Add(tag);
 
       return new CreatedDTO

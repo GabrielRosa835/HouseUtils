@@ -1,6 +1,8 @@
-﻿@model ErrorViewModel
+﻿@using HouseUtils.Presentation.Views.Shared
+@model ErrorViewModel
+@inject Resources R;
 @{
-    ViewData["Title"] = "Error";
+    ViewData[R.VIEW_DATA.TITLE] = "Error";
 }
 
 <h1 class="text-danger">Error.</h1>

@@ -20,7 +20,7 @@ public class UpdateTagCommandHandler
          return errors;
 
       Tag? tag;
-      using (var context = db.Context())
+      using (var context = db.GetContext())
       {
          tag = context.Tags.FindById(arguments.Id);
       }
@@ -32,7 +32,7 @@ public class UpdateTagCommandHandler
 
       try
       {
-         using var transaction = db.Transaction();
+         using var transaction = db.GetTransaction();
          transaction.Tags.Update(tag);
       }
       catch (Exception e)

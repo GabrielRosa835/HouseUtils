@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace HouseUtils.PresentationMVC.Views.Tags;
+namespace HouseUtils.Presentation.Register.Views.Tags;
 
  public class TagsModel : PageModel
  {

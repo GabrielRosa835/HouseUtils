@@ -1,8 +1,9 @@
-﻿@model Tag
+﻿@using HouseUtils.Domain.Models
+@model Tag
 @{
     bool isNew = Model.Id == 0;
     string rowId = isNew ? "new-tag-row" : $"tag-row-{Model.Id}";
-    string formAction = isNew ? "/Tags/Create" : "/Tags/Update";
+    string formAction = isNew ? "/Tags/Create" : "/Tags/Update"; 
     string target = isNew ? "#tags-table-body" : $"#tag-row-{Model.Id}";
     string swap = isNew ? "beforeend" : "outerHTML"; // Append new items, replace existing ones
 }

@@ -1,36 +1,100 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@using HouseUtils.Presentation.Models
+@using HouseUtils.Presentation.Views.Models
+@using Microsoft.AspNetCore.Antiforgery
+@inject Resources R
+@inject IAntiforgery Xsrf
+
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - HouseUtils</title>
+    <title>@ViewData[R.VIEW_DATA.TITLE] - @R.APP.NAME</title>
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <script src="https://kit.fontawesome.com/501538f1e1.js" crossorigin="anonymous"></script>
+
+    <style>
+        /* Optional: Makes sidebar links look better */
+        .sidebar .nav-link { color: #333; }
+        .sidebar .nav-link:hover { background-color: #e9ecef; border-radius: 5px; }
+        .sidebar .nav-link.active { background-color: #0d6efd; color: white; border-radius: 5px; }
+    </style>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100 bg-light">
+
     <header>
-        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand navbar-dark bg-primary shadow-sm">
             <div class="container-fluid">
-                <a class="navbar-brand" href="/">HouseUtils</a>
+                <a class="navbar-brand d-flex align-items-center gap-2" href="/">
+                    <i class="fa-solid fa-house"></i>
+                    <strong>@R.APP.NAME</strong>
+                </a>
+
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-2">
+                        @foreach (Area area in R.AREAS.ALL)
+                        {
+                            var isActive = Context.Request.Path.ToString().ToLower().Contains(area.Route) ? "active fw-bold" : "";
+
+                            <li class="nav-item">
+                                <a class="nav-link @isActive" href="@area.Route">
+                                    @area.Display
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
             </div>
         </nav>
     </header>
 
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+    <div class="container-fluid flex-grow-1">
+        @if (ViewData[R.VIEW_DATA.HAS_SIDEBAR] is bool b && b)
+        {
+            <div class="row h-100">
+                <nav class="col-md-3 col-lg-2 d-none d-md-block bg-white sidebar border-end py-3">
+                    <div class="sticky-top" style="top: 1rem; z-index: 0;">
+                        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-2 mb-1 text-muted text-uppercase">
+                            <span>Menu</span>
+                        </h6>
+                        <ul class="nav flex-column">
+                            @RenderSection(R.SECTIONS.SIDEBAR, required: false)
+                        </ul>
+                    </div>
+                </nav>
+
+                <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+                    <div class="bg-white p-4 rounded shadow-sm">
+                        @RenderBody()
+                    </div>
+                </main>
+            </div>
+        }
+        else // No Sidebar Layout
+        {
+            <main class="container py-4">
+                <div class="bg-white p-4 rounded shadow-sm">
+                    @RenderBody()
+                </div>
+            </main>
+        }
     </div>
 
+    <footer class="footer mt-auto py-3 bg-white border-top text-center">
+        <div class="container">
+            <span class="text-muted small">&copy; @DateTime.Now.Year - @R.APP.NAME</span>
+        </div>
+    </footer>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.body.addEventListener('htmx:configRequest', (event) => {
-            event.detail.headers['RequestVerificationToken'] = '@Html.AntiForgeryToken()';
+            event.detail.headers['RequestVerificationToken'] = '@Xsrf.GetAndStoreTokens(Context).RequestToken';
         });
     </script>
-
-    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
