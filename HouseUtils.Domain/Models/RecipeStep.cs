@@ -1,13 +1,29 @@
 ﻿namespace HouseUtils.Domain.Models;
 
-public class RecipeStep : IEntity<int>
-{
-   public int Id { get; set; }
-   public required int Order { get; set; }
-   public required string Instruction { get; set; }
-   public required int RecipeId { get; set; }
-   public Recipe? Recipe { get; set; }
+public record RecipeStepId (int Value);
+public record RecipeStepCreationArguments (RecipeStepId Id, int Order, string Instruction, Recipe Recipe);
 
-   int IEntity<int>.Pk => Id;
-   object IEntity.Pk => Id;
+public class RecipeStep : IEntity<RecipeStepId>
+{
+   RecipeStepId IEntity<RecipeStepId>.Pk => Id;
+   public RecipeStepId Id { get; private set; }
+   public int Order { get; private set; }
+   public string Instruction { get; private set; }
+   public RecipeId RecipeId { get; private set; }
+   public Recipe? Recipe { get; private set; }
+
+   private RecipeStep(RecipeStepId id, int order, string instruction, Recipe recipe)
+   {
+      Id = id;
+      Order = order;
+      Instruction = instruction;
+      RecipeId = recipe.Id;
+      Recipe = recipe;
+   }
+
+
+   public static RecipeStep Create (RecipeStepCreationArguments args)
+   {
+      return new RecipeStep(args.Id, args.Order, args.Instruction, args.Recipe);
+   }
 }

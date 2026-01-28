@@ -1,12 +1,12 @@
 ﻿using FluentValidation;
 
-using HouseUtils.Application.Persistence;
 using HouseUtils.Application.DTOs;
 using HouseUtils.Application.Extensions;
 using HouseUtils.Application.Models.Tags.DTOs;
+using HouseUtils.Application.Persistence;
 using HouseUtils.Shared;
-using HouseUtils.Shared.Attempts;
 using HouseUtils.Shared.Extensions;
+using HouseUtils.Shared.UnionTypes;
 
 namespace HouseUtils.Application.Models.Tags.Handlers;
 

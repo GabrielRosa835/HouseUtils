@@ -2,13 +2,27 @@
 
 namespace HouseUtils.Domain.Models;
 
-public class Storage : IEntity<int>
-{
-   public int Id { get; set; }
-   public required int ResourceId { get; set; }
-   public Resource? Resource { get; set; }
-   public required Measure Measure { get; set; }
+public record StorageId (int Value);
+public record StorageCreationArguments(StorageId Id, Resource Resource, Measure Measure);
 
-   int IEntity<int>.Pk => Id;
-   object IEntity.Pk => Id;
+public class Storage : IEntity<StorageId>
+{
+   StorageId IEntity<StorageId>.Pk => Id;
+   public StorageId Id { get; private set; }
+   public Resource? Resource { get; private set; }
+   public ResourceId ResourceId { get; private set; }
+   public Measure Measure { get; private set; }
+
+   private Storage(StorageId id, Resource resource, Measure measure)
+   {
+      Id = id;
+      Resource = resource;
+      ResourceId = resource.Id;
+      Measure = measure;
+   }
+
+   public static Storage Create (StorageCreationArguments args)
+   {
+      return new Storage(args.Id, args.Resource, args.Measure);
+   }
 }

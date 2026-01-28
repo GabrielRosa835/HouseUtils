@@ -6,7 +6,7 @@ using HouseUtils.Application.Models.Tags.DTOs;
 using HouseUtils.Application.Providers;
 using HouseUtils.Domain.Models;
 using HouseUtils.Shared;
-using HouseUtils.Shared.Attempts;
+using HouseUtils.Shared.UnionTypes;
 
 namespace HouseUtils.Application.Models.Tags.Handlers;
 

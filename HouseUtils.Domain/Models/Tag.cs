@@ -1,11 +1,23 @@
 ﻿namespace HouseUtils.Domain.Models;
 
-public class Tag : IEntity<int>
-{
-   public int Id { get; set; }
-   public required string Name { get; set; } = null!;
-   public string? Description { get; set; }
+public record TagId (int Value);
+public record TagCreationArguments(TagId Id, string Name, string? Description);
 
-   int IEntity<int>.Pk => Id;
-   object IEntity.Pk => Id;
+public class Tag : IEntity<TagId>
+{
+   TagId IEntity<TagId>.Pk => Id;
+   public TagId Id { get; private set; }
+   public string Name { get; private set; }
+   public string? Description { get; private set; }
+
+   private Tag(TagId id, string name, string? description)
+   {
+      Id = id;
+      Name = name;
+      Description = description;
+   }
+   public static Tag Create (TagCreationArguments args)
+   {
+      return new Tag(args.Id, args.Name, args.Description);
+   }
 }
